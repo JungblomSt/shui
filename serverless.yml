@@ -20,14 +20,14 @@ package:
     - '!local.yml'
 
 
-functions: {}
+functions:
 
-#  deleteMatch:
-#      handler: functions/matches/deleteMatch/index.handler
-#      events:
-#          - httpApi:
-#                path: /tournaments/{id}/matches/{matchId}
-#                method: DELETE
+  test:
+      handler: src/functions/test/index.handler
+      events:
+          - httpApi:
+                path: /test
+                method: '*'
 
 
 resources:
