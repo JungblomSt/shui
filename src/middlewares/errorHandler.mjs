@@ -1,12 +1,18 @@
-import { sendResponse } from "../responses/index.mjs";
+import { sendResponse, HttpError } from '../responses/index.mjs';
 
 export const errorHandler = () => ({
-  onError: (handler) => {
-    const error = handler.error;
-    console.error("ERROR:", error);
+    onError: (handler) => {
+        const error = handler.error;
 
-    handler.response = sendResponse(error.statusCode || 500, {
-      message: error.message || "Internal Server Error!",
-    });
-  },
+        if (error instanceof HttpError) {
+            handler.response = sendResponse(
+                error.statusCode,
+                { error: error.message });
+            return;
+        }
+
+        console.error("ERROR:", error);
+
+        handler.response = sendResponse(500, { error: "Internal Server Error!" });
+    }
 });
