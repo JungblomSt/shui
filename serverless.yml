@@ -72,6 +72,13 @@ functions:
           path: /posts/{postId}
           method: GET
 
+  createPost:
+    handler: src/functions/posts/createPost/index.handler
+    events:
+      - httpApi:
+          path: /posts
+          method: POST
+
 resources:
   Resources:
     ShuiTable:

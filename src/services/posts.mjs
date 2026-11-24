@@ -1,5 +1,5 @@
 import { db, TABLE_NAME } from "./db.mjs";
-import { GetCommand, QueryCommand } from "@aws-sdk/lib-dynamodb";
+import { GetCommand, QueryCommand, PutCommand } from "@aws-sdk/lib-dynamodb";
 
 const postKey = (id) => ({ PK: `POST#${id}`, SK: 'POST' });
 
@@ -39,4 +39,19 @@ export const getPostById = async (id) => {
         Key: postKey(id),
     }));
     return result.Item ? toPost(result.Item) : null;
+};
+
+// spara inlägg i db
+export const savePost = async (post) => {
+    await db.send(new PutCommand({
+        TableName: TABLE_NAME,
+        Item: {
+            ...post,
+            ...postKey(post.id),
+            GSI1PK: `USER#${post.username}`,
+            GSI1SK: post.createdAt,
+            GSI2PK: 'POSTS',
+            GSI2SK: post.createdAt,
+        },
+    }));
 };
