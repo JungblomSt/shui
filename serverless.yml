@@ -22,12 +22,29 @@ package:
 
 functions:
 
+## AUTH
+  register: 
+    handler: src/functions/auth/register/index.handler
+    events:
+      - httpApi:
+          path: /auth/register
+          method: POST
+
+  login:
+    handler: src/functions/auth/login/index.handler
+    events:
+      - httpApi:
+          path: /auth/login
+          method: POST
+
   test:
       handler: src/functions/test/index.handler
       events:
           - httpApi:
                 path: /test
                 method: '*'
+
+  
 
 
 resources:
