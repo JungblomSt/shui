@@ -93,6 +93,21 @@ functions:
           path: /posts/{postId}
           method: DELETE
 
+## COMMENTS
+  getComments:
+    handler: src/functions/comments/getComments/index.handler
+    events:
+      - httpApi:
+          path: /posts/{postId}/comments
+          method: GET
+
+  createComment:
+    handler: src/functions/comments/createComment/index.handler
+    events:
+      - httpApi:
+          path: /posts/{postId}/comments
+          method: POST
+
 resources:
   Resources:
     ShuiTable:
