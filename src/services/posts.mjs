@@ -1,5 +1,5 @@
 import { db, TABLE_NAME } from "./db.mjs";
-import { GetCommand, QueryCommand, PutCommand } from "@aws-sdk/lib-dynamodb";
+import { GetCommand, QueryCommand, PutCommand, UpdateCommand, DeleteCommand } from "@aws-sdk/lib-dynamodb";
 
 const postKey = (id) => ({ PK: `POST#${id}`, SK: 'POST' });
 
@@ -54,4 +54,43 @@ export const savePost = async (post) => {
             GSI2SK: post.createdAt,
         },
     }));
+};
+
+// ändra inlägg
+export const updatePostContent = async (id, { title, content, updatedAt}) => {
+    const result = await db.send(new UpdateCommand({
+        TableName: TABLE_NAME,
+        Key: postKey(id),
+        UpdateExpression: 'SET #title = :title, #content = :content, #updatedAt = :updatedAt',
+        ExpressionAttributeNames: {
+            '#title': 'title',
+            '#content': 'content',
+            '#updatedAt': 'updatedAt',
+        },
+        ExpressionAttributeValues: {
+            ':title': title,
+            ':content': content,
+            ':updatedAt': updatedAt,
+        },
+        ReturnValues: 'ALL_NEW',
+    }));
+    return toPost(result.Attributes);
+}
+
+// radera inlägg och tillhörande kommentarer
+export const deletePostAndComments = async (id) => {
+    const result = await db.send(new QueryCommand({
+        TableName: TABLE_NAME,
+        KeyConditionExpression: 'PK = :pk',
+        ExpressionAttributeValues: { ':pk': `POST#${id}` },
+        ProjectionExpression: 'PK, SK',
+    }));
+
+    await Promise.all(
+        result.Items.map((item) =>
+            db.send(new DeleteCommand({
+                TableName: TABLE_NAME,
+                Key: { PK: item.PK, SK: item.SK },
+            })))
+    );
 };

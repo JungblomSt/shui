@@ -79,6 +79,20 @@ functions:
           path: /posts
           method: POST
 
+  updatePost:
+    handler: src/functions/posts/updatePost/index.handler
+    events:
+      - httpApi:
+          path: /posts/{postId}
+          method: PUT
+
+  deletePost:
+    handler: src/functions/posts/deletePost/index.handler
+    events:
+      - httpApi:
+          path: /posts/{postId}
+          method: DELETE
+
 resources:
   Resources:
     ShuiTable:

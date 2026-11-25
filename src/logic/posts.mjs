@@ -1,4 +1,4 @@
-import { getAllPosts, getPostById, getPostsByUsername, savePost } from "../services/posts.mjs";
+import { deletePostAndComments, getAllPosts, getPostById, getPostsByUsername, savePost, updatePostContent } from "../services/posts.mjs";
 import { generateGuestName } from "../utils/guestNames.mjs";
 import { HttpError } from "../responses/index.mjs";
 
@@ -11,7 +11,7 @@ export const getPost = async (id) => {
     const post = await getPostById(id);
     if(!post) throw new HttpError(404, 'Post not found');
     return post;
-}
+};
 
 export const createPost = async ({ title, content }, user) => {
     let username
@@ -37,5 +37,13 @@ export const createPost = async ({ title, content }, user) => {
     }
     await savePost(post)
     return post
+};
 
-}
+export const updatePost = async (id, { title, content }) => {
+    const updatedAt = new Date().toISOString()
+    return updatePostContent(id, { title, content, updatedAt }) 
+};
+
+export const deletePost = async (id) => {
+    await deletePostAndComments(id)
+};
