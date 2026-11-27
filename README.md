@@ -171,10 +171,10 @@ API:et använder **single-table design**: användare, inlägg och kommentarer la
 
 ## Designbeslut
 
-- **Lagerindelning** Handlers gör bara HTTP, 'logic/' innehåller affärsreglerna och 'services/' kommunicerar med databasen, Fel kastas som 'HttpError' och fångas av 'errorHandler'.
-- **Säkra felmeddelanden** Endast fel jag kastat ger felmeddelanden till användaren, övriga loggas och ger ett allmänt '500'.
+- **Lagerindelning** Handlers gör bara HTTP, `logic/` innehåller affärsreglerna och `services/` kommunicerar med databasen, Fel kastas som `HttpError` och fångas av `errorHandler`.
+- **Säkra felmeddelanden** Endast fel jag kastat ger felmeddelanden till användaren, övriga loggas och ger ett allmänt `500`.
 - **Inloggning** Samma meddelande vid inloggning, oavsett om det är användarnamn eller lösenord som är fel.
 - **Identiteten kommer från JWT.** Zod tar bort fält som inte finns i schemat, så ett `username` i request body ignoreras.
 - **En konfigurerbar `authenticate`.** `authenticate({ optional: true })` släpper igenom gäster på `POST /posts`, men en ogiltig token ger fortfarande `401`.
-- **Användarnamn** är 'caseSensetive' dvs. 'jungblom' och 'Jungblom' är olika användare
-- **Ägarskap** 'isGuest' kontrolleras innan användarnamn för att en registrerad användare inte ska kunna ändra/radera ett gästinlägg.
+- **Användarnamn** är `caseSensetive` dvs. `jungblom` och `Jungblom` är olika användare
+- **Ägarskap** `isGuest` kontrolleras innan användarnamn för att en registrerad användare inte ska kunna ändra/radera ett gästinlägg.
