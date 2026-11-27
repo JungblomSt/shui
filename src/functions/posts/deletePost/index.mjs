@@ -6,7 +6,7 @@ import { authorizePostOwner } from "../../../middlewares/authorization.mjs";
 import { deletePost } from "../../../logic/posts.mjs";
 
 const deletePostHandler = async (event) => {
-    const post = await deletePost(event.pathParameters.postId);
+    await deletePost(event.pathParameters.postId);
     return sendResponse(204)
 }
 

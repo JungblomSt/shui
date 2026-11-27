@@ -10,7 +10,7 @@ import { sendResponse } from "../../../responses/index.mjs";
 
 const createPostHandler = async (event) => {
     const post = await createPost(event.body, event.user);
-    return sendResponse(201, {message: 'Post created', post });
+    return sendResponse(201, {message: 'Post created successfully', post });
 };
 
 export const handler = middy(createPostHandler)

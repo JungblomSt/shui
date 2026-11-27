@@ -8,14 +8,16 @@ Bas-URL: https://nf56z34p38.execute-api.eu-north-1.amazonaws.com
 
 ## Tekniker
 
-Node.js och JavaScript
-AWS Lambda och API Gateway (HTTP API)
-DynamoDB
-Serverless Framework
-Middy
-bcrypt och JWT
-Zod
-Git och GitHub
+- Node.js
+- JavaScript
+- AWS Lambda och API Gateway (HTTP API)
+- DynamoDB
+- Serverless Framework
+- Middy
+- bcrypt och JWT
+- Zod
+- Git
+- GitHub
 
 ## Endpoints
 
@@ -35,7 +37,7 @@ Git och GitHub
 
 1. Klona repot och installera beroenden:
    ```bash
-   git clone <repo-url>
+   git clone https://github.com/JungblomSt/shui.git
    cd shui
    npm install
    ```
@@ -81,7 +83,7 @@ src/
 │ ├── errorHandler.mjs # Gör om alla fel till { "error": "..." }
 │ ├── jsonBody.mjs # Parsar JSON-body, 400 vid ogiltig JSON
 │ └── validation.mjs # Validerar body och query med Zod
-├── models/ # Zod-scheman
+├── model/ # Zod-scheman
 │ ├── auth.mjs
 │ ├── comments.mjs
 │ └── posts.mjs
@@ -92,10 +94,10 @@ src/
 │ ├── db.mjs
 │ ├── posts.mjs
 │ └── users.mjs
-├── utils/ # Hjälpverktyg
-│ ├── bcrypt.mjs
-│ ├── guestNames.mjs
-│ └── jsonWebToken.mjs
+└── utils/                  # Hjälpverktyg
+  ├── bcrypt.mjs
+  ├── guestNames.mjs
+  └── jsonWebToken.mjs
 ```
 
 ### Ansvarsfördelning

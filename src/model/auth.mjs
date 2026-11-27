@@ -3,8 +3,8 @@
 import { z } from 'zod';
 
 export const loginSchema = z.object({
-  username: z.string(),
-  password: z.string()
+  username: z.string().trim().min(1, 'is required'),
+  password: z.string().trim().min(1, 'is required')
 });
 
 // Stina och stina är olika användarnamn.

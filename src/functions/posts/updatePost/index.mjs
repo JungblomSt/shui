@@ -10,7 +10,7 @@ import { updatePost } from "../../../logic/posts.mjs";
 
 const updatePostHandler = async (event) => {
     const post = await updatePost(event.pathParameters.postId, event.body);
-    return sendResponse(200, {message: 'post updated successfully', post })
+    return sendResponse(200, {message: 'Post updated successfully', post })
 }
 
 export const handler = middy(updatePostHandler)
