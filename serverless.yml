@@ -18,6 +18,7 @@ package:
     - '!.git/**'
     - '!README.md'
     - '!local.yml'
+    - '!**/.DS_Store'
 
 
 functions:
@@ -36,26 +37,6 @@ functions:
       - httpApi:
           path: /auth/login
           method: POST
-
-#  test:
-#      handler: src/functions/test/index.handler
-#      events:
-#          - httpApi:
-#                path: /test
-#                method: '*'
-
-#  testRequired:
-#    handler: src/functions/test/index.required
-#    events:
-#      - httpApi:
-#          path: /test/required
-#          method: GET
-#  testOptional:
-#    handler: src/functions/test/index.optional
-#    events:
-#      - httpApi:
-#          path: /test/optional
-#          method: GET
 
 ## POSTS
   getPosts:
